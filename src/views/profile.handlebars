@@ -1,0 +1,34 @@
+<nav class='navbar fixed-top navbar-expand-lg navbar-dark bg-primary'>
+  <a onclick="location.href='/products'">
+    <img src='https://i.ibb.co/nrNMjtT/logo.png' alt='logo' width='100px' style='margin-left: 1.4rem;' />
+  </a>
+  <div>
+    <button class='button is-danger mt-3' onclick="location.href='/products'"><span class='icon'>
+        <i class='material-icons'>arrow_back</i></span><span>Seguir comprando</span>
+    </button>
+  </div>
+  <div>
+    <button id='logout-btn' class='button is-info'>
+      <span class='icon'>
+        <i class='material-icons'>exit_to_app</i>
+      </span>
+      <span>Cerrar sesión</span>
+    </button>
+  </div>
+</nav>
+<h2 class='profile-title'>MI PERFIL</h2>
+<div class='profile_container'>
+  <div class='profile-card'>
+    <h5 class='profile-name'>{{firstName}} {{lastName}}</h5>
+    <div class='col-md-8'>
+      <div class='card-body'>
+        <h6>Información del usuario</h6>
+        <hr />
+        <h6>Email: {{email}}</h6>
+        <h6>Edad: {{age}}</h6>
+        <h6>Rol: {{role}}</h6>
+        <hr />
+      </div>
+    </div>
+  </div>
+</div>

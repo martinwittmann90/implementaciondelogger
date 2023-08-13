@@ -1,0 +1,22 @@
+<div class="product-card">
+  <h1>
+    {{product.title}}
+  </h1>
+  <img src="{{product.thumbnail}}" alt="imagen del producto">
+  <h2>
+    Price: {{product.price}}
+  </h2>
+  <h2>
+    Category: {{product.category}}
+  </h2>
+  <div class="product-description">
+    <h2>
+      Description: {{product.description}}
+    </h2>
+    <h2>
+      id: {{product._id}}
+    </h2>
+    <button onclick="putIntoCart('{{product._id}}')">🛒</button>
+  </div>
+  <button class="button is-danger mt-3" onclick="location.href='/products'">Volver</button>
+</div>

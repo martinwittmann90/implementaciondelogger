@@ -1,0 +1,73 @@
+<nav class='navbar'>
+  {{#if session}}
+    <a onclick="location.href='/products'">
+      <img src='https://i.ibb.co/nrNMjtT/logo.png' alt='logo' width='100px' style='margin-left: 1.4rem;' />
+    </a>
+    <a href='/api/sessions/current' class='navbar__link cartInfo' id='{{session.cartID}}'>
+      <button class='navbar__button button is-danger'><span class='icon'>
+          <i class='material-icons'>account_circle</i>
+        </span><span>Perfil</span></button>
+    </a>
+    <a onclick="location.href='/carts/{{session.cartID}}'">
+      <button class='navbar__button button is-danger'><span class='icon'>
+          <i class='material-icons'>shopping_cart</i>
+        </span>
+        <span>Carrito</span></button>
+    </a>
+    <div class='navbar__content'>
+      <h2 class='navbar__title'>Bienvenido/a: {{session.firstName}}</h2>
+      <button id='logout-btn' class='navbar__logout-btn button is-danger'>
+        <span class='icon'><i class='material-icons'>exit_to_app</i>
+        </span><span>Cerrar sesión</span>
+      </button>
+    </div>
+  {{else}}
+    <p class='navbar__guest-message'>Bienvenido a la tienda</p>
+    <a href='/?login=true' class='navbar__link button is-light'>INICIAR SESIÓN</a>
+    <a href='/?register=true' class='navbar__link button is-primary'>REGISTRO</a>
+  {{/if}}
+</nav>
+<section>
+  <h1 class='title__productspage'>LISTADO DE PRODUCTOS</h1>
+  <div class='row product justify-content-evenly'>
+    {{#each productsVisualice}}
+      <div class='containerCard containerProd' style='width: 14rem; margin-top: 5px;' id='{{this._id}}'>
+        <div style='margin-top: 10px; width:200px; height:200px;'>
+          <img src={{this.thumbnail}} alt='foto de Product {{this.id}}' />
+        </div>
+        <div class='card-body'>
+          <h3 id='titleProduct' class='card-title'>{{this.title}}</h3>
+          <p id='descriptionProduct' class='card-text'>{{this.description}}</p>
+          <p id='priceProduct' class='card-text'>$ {{this.price}}</p>
+          <button onclick="putIntoCart('{{this._id}}')">🛒</button>
+          <a href='/products/{{this._id}}'>ir al producto</a>
+          <br />
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</section>
+
+<section>
+  <div style='display: flex; justify-content: space-between; padding: 30px'>
+    <div>
+      ORDENAR POR PRECIO
+      <a href='?page=1&limit={{paginationInfo.limit}}&sort=asc&price={{price}}&status={{status}}'>⬆️</a>
+      <a href='?page=1&limit={{paginationInfo.limit}}&sort=desc&price={{price}}&status={{status}}'>⬇️</a>
+    </div>
+  </div>
+  <div style='display: flex; justify-content: center; margin-top: 30px'>
+    <div class='pagination'>
+      {{#if paginationInfo.hasPrevPage}}
+        <a href='?page={{paginationInfo.prevPage}}&limit={{paginationInfo.limit}}&sort={{sort}}&price={{price}}&status={{status}}'>⬅️ Anterior</a>
+      {{/if}}
+      <span style='margin-left: 20px; margin-right: 20px'>Página {{paginationInfo.page}} de {{paginationInfo.totalPages}}</span>
+      {{#if paginationInfo.hasNextPage}}
+        <a href='?page={{paginationInfo.nextPage}}&limit={{paginationInfo.limit}}&sort={{sort}}&price={{price}}&status={{status}}'>Siguiente ➡️</a>
+      {{/if}}
+    </div>
+  </div>
+</section>
+
+<script src='/js/profile.js'></script>
+<script src='/js/cart.js'></script>
