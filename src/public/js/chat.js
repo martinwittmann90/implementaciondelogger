@@ -1,24 +1,24 @@
-//FRONT
+/*--------------CHAT----------------*/
 const socket = io();
 
-const messageContainer = document.getElementById("messages");
-const btn = document.getElementById("send");
-const usernameInput = document.getElementById("username");
-const messageInput = document.getElementById("message");
+const messageContainer = document.getElementById('messages');
+const btn = document.getElementById('send');
+const usernameInput = document.getElementById('username');
+const messageInput = document.getElementById('message');
 
-btn.addEventListener("click", () => {
+btn.addEventListener('click', () => {
   const message = messageInput.value;
   const username = usernameInput.value;
-  messageInput.value = "";
-  usernameInput.value = "";
+  messageInput.value = '';
+  usernameInput.value = '';
 
-  socket.emit("chat_front_to_back", {
+  socket.emit('chat_front_to_back', {
     message: message,
     username: username,
   });
 });
 
-socket.on("chat_back_to_front", (messages) => {
+socket.on('chat_back_to_front', (messages) => {
   messageContainer.innerHTML = messages
     .map((message) => {
       return `<div
@@ -36,6 +36,5 @@ socket.on("chat_back_to_front", (messages) => {
            </div>
        </div>`;
     })
-    .join("");
-    /* window.location.reload(); */
+    .join('');
 });

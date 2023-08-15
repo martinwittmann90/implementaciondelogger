@@ -1,6 +1,6 @@
-<h1 class="title__cartpage">CHECKOUT</h1>
+<h1 class='title__cartpage'>CHECKOUT</h1>
 {{#if cart.length}}
-  <table class="table__cart">
+  <table class='table__cart'>
     <thead>
       <tr>
         <th>Titulo</th>
@@ -14,26 +14,28 @@
           <td>{{this.title}}</td>
           <td>{{this.price}}</td>
           <td>{{this.quantity}}</td>
-          <td><button onclick="removeProductFromCart('{{../cart._id}}', '{{this.product._id}}')">Eliminar</button></td>
+          <td class='infoProduct' id='{{this._id}}'>{{this._id}}</td>
+          <td><button onclick="removeProductFromCart('{{userCartId}}', '{{this.product._id}}')">Eliminar</button></td>
         </tr>
       {{/each}}
     </tbody>
   </table>
-  <button class="button is-danger mt-3" onclick="clearCart()"><i class="material-icons">shopping_cart</i>Vaciar carrito</button>
-  <a href="/carts/{{userCartId}}/purchase" class="button is-danger mt-3"> <span class="icon">
-      <i class="material-icons">done</i>
+  <button class='button is-danger mt-3' onclick='clearCart()'><i class='material-icons'>shopping_cart</i>Vaciar carrito</button>
+  <a href='/carts/{{userCartId}}/purchase' class='button is-danger mt-3'>
+    <span class='icon'>
+      <i class='material-icons'>done</i>
     </span><span>Finalizar compra</span></a>
-  <button class="button is-danger mt-3" onclick="location.href='/products'"><span class="icon">
-    <i class="material-icons">arrow_back</i></span><span>Seguir comprando</span>
+  <button class='button is-danger mt-3' onclick="location.href='/products'"><span class='icon'>
+      <i class='material-icons'>arrow_back</i></span><span>Seguir comprando</span>
   </button>
 
 {{else}}
   <p>No products in the cart</p>
-  <button class="button is-danger mt-3" onclick="location.href='/products'"><span class="icon">
-    <i class="material-icons">arrow_back</i></span><span>Seguir comprando</span>
+  <button class='button is-danger mt-3' onclick="location.href='/products'"><span class='icon'>
+      <i class='material-icons'>arrow_back</i></span><span>Seguir comprando</span>
   </button>
 {{/if}}
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/cart.js"></script>
-<script src="/js/profile.js"></script>
+<a class='infoCart' id='{{userCartId}}'></a>
+<script src='/socket.io/socket.io.js'></script>
+<script src='/js/cart.js'></script>
+<script src='/js/profile.js'></script>

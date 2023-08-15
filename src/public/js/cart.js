@@ -1,15 +1,24 @@
 let locateCartById = document.getElementsByClassName('cartInfo')[0];
+let userCart = document.getElementsByClassName('infoCart')[0];
+let productInfo = document.getElementsByClassName('infoProduct')[0];
+console.log(userCart);
+console.log('Aca deberia aparecer el id del Product:', productInfo);
 let API_URL;
 if (window.location.hostname === 'localhost' && window.location.port === '3000') {
   API_URL = 'http://localhost:3000/api';
 } else {
   API_URL = 'http://localhost:8080/api';
 }
+let API_URL_FORDELETE;
+if (window.location.hostname === 'localhost' && window.location.port === '3000') {
+  API_URL_FORDELETE = 'http://localhost:3000/api';
+} else {
+  API_URL_FORDELETE = 'http://localhost:8080/api';
+}
 
+/*------------------------ADD PRODUCTS TO CART---------------------*/
 function putIntoCart(_id) {
   const cartIdValue = locateCartById?.getAttribute('id');
-  console.log('cartIdValue:', cartIdValue);
-  console.log('_id:', _id);
   if (cartIdValue === undefined) {
     window.location.href = '/api/sessions/current';
   }
@@ -35,16 +44,15 @@ function putIntoCart(_id) {
 }
 
 function removeProductFromCart(_id) {
-  addToCartById = localStorage.getItem('carrito-id');
-  const url = API_URL + '/carts/' + addToCartById + '/products/' + _id;
-
+  const userCartRemove = userCart?.getAttribute('id');
+  const productInfoRemove = productInfo?.getAttribute('id');
+  const url = API_URL + '/carts/delete/' + userCartRemove + '/product/' + productInfoRemove;
   const options = {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   };
-
   fetch(url, options)
     .then((response) => response.json())
     .then((res) => {
@@ -54,22 +62,19 @@ function removeProductFromCart(_id) {
       console.error('Error:', error);
       alert(JSON.stringify(error));
     });
+  window.location.href = window.location.href;
 }
 
 //FUNCION PARA VACIAR CARRITO
 function clearCart() {
-  const cartIdValue = locateCartById?.getAttribute('id');
-  const url = API_URL + '/carts/' + addToCartById;
-
+  const userCartEmpty = userCart?.getAttribute('id');
+  const url = API_URL_FORDELETE + '/carts/empty/' + userCartEmpty;
   const options = {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
   };
-
-  window.location.reload();
-
   fetch(url, options)
     .then((response) => response.json())
     .then((res) => {
@@ -79,4 +84,5 @@ function clearCart() {
       console.error('Error:', error);
       alert(JSON.stringify(error));
     });
+  window.location.href = window.location.href;
 }

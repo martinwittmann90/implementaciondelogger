@@ -1,4 +1,4 @@
-import ProductModel from "../models/product.model.js"
+import ProductModel from '../models/product.model.js';
 
 class ProductsDAO {
   async getAllProductsDao(filter, options) {
@@ -9,31 +9,29 @@ class ProductsDAO {
       throw err;
     }
   }
-  async getProductById(id) {
+  async getProductByCode(code) {
     try {
-      const product = await ProductModel.find({ _id: id });
+      const product = await ProductModel.findOne({ code });
       return product;
     } catch (err) {
-        throw (`No se encontró el producto.`);            
+      throw `No se encontró el producto.`;
     }
-};
-  async createOneProduct(){
-    const product = ProductModel.create();
+  }
+  async createOneProduct(productData) {
+    const product = ProductModel.create(productData);
     return product;
-  };
-  async deleteOneProduct(){
-    const product = ProductModel.deleteOne();
+  }
+  async deleteOneProduct(productId) {
+    const product = ProductModel.findByIdAndDelete(productId);
     return product;
-  };
-  async updateOneProduct(){
-    const product = ProductModel.findByIdAndUpdate();
+  }
+  async updateOneProduct(productId, updatedData) {
+    const product = ProductModel.findByIdAndUpdate(productId, updatedData, { new: true });
     return product;
-  };
-  async getProduct(productId){
+  }
+  async getProduct(productId) {
     const product = ProductModel.findById(productId);
     return product;
   }
-  
-};
+}
 export default ProductsDAO;
-

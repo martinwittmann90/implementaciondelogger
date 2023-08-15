@@ -31,7 +31,6 @@ export default function initPassport() {
           }
           const newCart = await serviceCarts.createOne();
           const cartID = newCart.result.payload._id.toString();
-
           const newUser = {
             email,
             firstName,
@@ -105,10 +104,10 @@ export default function initPassport() {
             const newUser = {
               email: profile.email,
               firstName: profile._json.name || profile._json.login || 'noname',
-              lastName: 'nolast',
+              lastName: null,
               age: 18,
               role: 'user',
-              password: 'nopass',
+              password: null,
               cartID: cartID,
             };
             let userCreated = await UserModel.create(newUser);

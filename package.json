@@ -12,7 +12,13 @@
   "author": "Martin Wittmann",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@faker-js/faker": "^8.0.2",
+    "@fontsource/roboto": "^5.0.8",
+    "@mui/icons-material": "^5.14.3",
+    "@mui/material": "^5.14.5",
+    "@splidejs/splide": "github:splidejs/splide",
     "bcrypt": "^5.1.0",
     "bulma": "^0.9.4",
     "commander": "^11.0.0",

@@ -1,25 +1,22 @@
+<div class='publicityBanner'>
+  <p>Envíos a todo el país</p>
+  <p>3 Cuotas sin interés</p>
+  <p>0800-777-NISCHE</p>
+</div>
 <nav class='navbar'>
   {{#if session}}
-    <a onclick="location.href='/products'">
-      <img src='https://i.ibb.co/nrNMjtT/logo.png' alt='logo' width='100px' style='margin-left: 1.4rem;' />
-    </a>
-    <a href='/api/sessions/current' class='navbar__link cartInfo' id='{{session.cartID}}'>
-      <button class='navbar__button button is-danger'><span class='icon'>
-          <i class='material-icons'>account_circle</i>
-        </span><span>Perfil</span></button>
-    </a>
-    <a onclick="location.href='/carts/{{session.cartID}}'">
-      <button class='navbar__button button is-danger'><span class='icon'>
-          <i class='material-icons'>shopping_cart</i>
-        </span>
-        <span>Carrito</span></button>
-    </a>
-    <div class='navbar__content'>
+    <div>
+      <a onclick="location.href='/products'"><img src='https://i.ibb.co/nrNMjtT/logo.png' alt='logo' width='100px' style='margin-left: 1.4rem;' /></a>
+    </div>
+    <div>
       <h2 class='navbar__title'>Bienvenido/a: {{session.firstName}}</h2>
-      <button id='logout-btn' class='navbar__logout-btn button is-danger'>
-        <span class='icon'><i class='material-icons'>exit_to_app</i>
-        </span><span>Cerrar sesión</span>
-      </button>
+    </div>
+    <div class='navbar__content'>
+      <a href='/api/sessions/current' class='navbar__link cartInfo' id='{{session.cartID}}'>
+        <button class='navbar__button button is-danger'><span class='icon'><i class='material-icons'>account_circle</i></span><span>Perfil</span></button></a>
+      <a onclick="location.href='/carts/{{session.cartID}}'">
+        <button class='navbar__button button is-danger'><span class='icon'><i class='material-icons'>shopping_cart</i></span><span>Carrito</span></button></a>
+      <button id='logout-btn' class='navbar__logout-btn button is-danger'><span class='icon'><i class='material-icons'>exit_to_app</i></span><span>Cerrar sesión</span></button>
     </div>
   {{else}}
     <p class='navbar__guest-message'>Bienvenido a la tienda</p>
@@ -28,7 +25,13 @@
   {{/if}}
 </nav>
 <section>
-  <h1 class='title__productspage'>LISTADO DE PRODUCTOS</h1>
+  <div style='display: flex; justify-content: space-between; padding: 30px'>
+    <div>
+      ORDENAR POR PRECIO
+      <a href='?page=1&limit={{paginationInfo.limit}}&sort=asc&price={{price}}&status={{status}}'>⬆️</a>
+      <a href='?page=1&limit={{paginationInfo.limit}}&sort=desc&price={{price}}&status={{status}}'>⬇️</a>
+    </div>
+  </div>
   <div class='row product justify-content-evenly'>
     {{#each productsVisualice}}
       <div class='containerCard containerProd' style='width: 14rem; margin-top: 5px;' id='{{this._id}}'>
@@ -49,13 +52,7 @@
 </section>
 
 <section>
-  <div style='display: flex; justify-content: space-between; padding: 30px'>
-    <div>
-      ORDENAR POR PRECIO
-      <a href='?page=1&limit={{paginationInfo.limit}}&sort=asc&price={{price}}&status={{status}}'>⬆️</a>
-      <a href='?page=1&limit={{paginationInfo.limit}}&sort=desc&price={{price}}&status={{status}}'>⬇️</a>
-    </div>
-  </div>
+
   <div style='display: flex; justify-content: center; margin-top: 30px'>
     <div class='pagination'>
       {{#if paginationInfo.hasPrevPage}}
