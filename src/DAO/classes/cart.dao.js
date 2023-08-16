@@ -35,7 +35,7 @@ class CartsDAO {
       const cartDeleted = await CartModel.deleteOne(/* { _id: id } */);
       return cartDeleted;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 }

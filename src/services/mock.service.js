@@ -1,4 +1,4 @@
-import { faker } from "@faker-js/faker";
+import { faker } from '@faker-js/faker';
 
 class ServiceMock {
   async getAllProductsMock() {
@@ -22,7 +22,7 @@ class ServiceMock {
       } while (products.length < 100);
       return { status: 200, result: { status: 'success', payload: products } };
     } catch (error) {
-      console.log(error);
+      logger.error(error);
       return {
         status: 500,
         result: { status: 'error', msg: 'Internal Server Error', payload: {} },

@@ -3,6 +3,7 @@ const productsDAO = new ProductsDAO();
 import EErros from '../error/enum.js';
 import CustomError from '../error/customError.js';
 import { customErrorMsg } from '../error/customErrorMessage.js';
+import { logger } from '../utils/logger.js';
 
 class ServiceProducts {
   async getAllProducts(page, limit, sort, query) {
@@ -41,7 +42,7 @@ class ServiceProducts {
         throw error;
       }
       if (await productsDAO.getProductByCode(code, true)) {
-        console.log('Validation error: Product already exists');
+        logger.error('Validation error: Product already exists', { productData });
         return CustomError.createError({
           name: 'Validation Error',
           message: 'Product already exists.',
@@ -52,7 +53,7 @@ class ServiceProducts {
       const newProd = await productsDAO.createOneProduct({ ...productData, price, stock });
       return newProd;
     } catch (error) {
-      console.log('Error creating product:', error);
+      logger.error(`Error creating product: ${error.message}`, { productData });
       throw new Error(`When creating product: Error creating product: ${error.message}`);
     }
   }

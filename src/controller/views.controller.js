@@ -1,3 +1,4 @@
+import { logger } from '../utils/logger.js';
 import ServiceUsers from '../services/user.service.js';
 import ServiceProducts from '../services/products.service.js';
 import ServiceChats from '../services/chats.service.js';
@@ -7,8 +8,6 @@ const Users = new ServiceUsers();
 const Chats = new ServiceChats();
 const serviceProducts = new ServiceProducts();
 const serviceCarts = new ServiceCarts();
-
-import { logger } from '../utils/logger.js';
 
 class ViewsController {
   async getAll(req, res) {
@@ -56,9 +55,9 @@ class ViewsController {
         query: query,
       };
       res.render('products', productsContext);
-      logger.info('getAll function called successfully.');
+      logger.info('Get all products function called successfully.');
     } catch (error) {
-      console.error(error);
+      logger.error(error, { productsContext });
       return res.status(400).json({
         status: 'error',
         msg: error.message,
@@ -83,8 +82,8 @@ class ViewsController {
         return null;
       });
       res.render('carts', { cart: simplifiedCart, userCartId });
-      logger.info('getCardbyId function called successfully.');
     } catch (error) {
+      logger.error(error, { cart: simplifiedCart, userCartId });
       next(error);
     }
   }
@@ -130,7 +129,6 @@ class ViewsController {
         stock: product.stock,
         category: product.category,
       };
-      console.log(productSimplificado);
       res.render('product', { product: productSimplificado });
       logger.info('Get product function called successfully.');
     } catch (err) {
@@ -164,7 +162,7 @@ class ViewsController {
       res.render('realtimeproducts', { productsVisualice, paginationInfo, nextPageUrl, sort });
       logger.info('realTimeProducts function called successfully.');
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
   async testLogger(req, res) {

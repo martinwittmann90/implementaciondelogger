@@ -1,11 +1,11 @@
-import MessageModel from "../models/message.model.js"
+import MessageModel from '../models/message.model.js';
 class MessagesDAO {
   async getAll() {
     try {
       const menssages = await MessageModel.find({});
       return menssages;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -14,10 +14,9 @@ class MessagesDAO {
       const newMessage = await MessageModel.create(message);
       return newMessage;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 }
 
 export default MessagesDAO;
-

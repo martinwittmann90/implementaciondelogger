@@ -1,3 +1,4 @@
+import { logger } from '../utils/logger.js';
 import passport from 'passport';
 import local from 'passport-local';
 import UserModel from '../DAO/models/user.model.js';
@@ -26,7 +27,7 @@ export default function initPassport() {
           const { email, firstName, lastName, age } = req.body;
           let user = await UserModel.findOne({ email: username });
           if (user) {
-            console.log('User already exists');
+            logger.info('User Registration successful', { user: userCreated });
             return done(null, false);
           }
           const newCart = await serviceCarts.createOne();
@@ -41,12 +42,10 @@ export default function initPassport() {
             cartID: cartID,
           };
           let userCreated = await UserModel.create(newUser);
-          console.log(userCreated);
-          console.log('User Registration succesful');
+          logger.info('User Registration successful', { user: userCreated });
           return done(null, userCreated);
         } catch (e) {
-          console.log('Error in register');
-          console.log(e);
+          logger.error('Error in register', { error: e });
           return done(e);
         }
       }
@@ -59,11 +58,11 @@ export default function initPassport() {
       try {
         const user = await UserModel.findOne({ email: username });
         if (!user) {
-          console.log('User Not Found with username (email) ' + username);
+          logger.info('User Not Found with username (email)', { email: username });
           return done(null, false);
         }
         if (!compareHash(password, user.password)) {
-          console.log('Invalid Password');
+          logger.info('Invalid Password');
           return done(null, false);
         }
         return done(null, user);
@@ -96,7 +95,7 @@ export default function initPassport() {
             return done(new Error('cannot get a valid email for this user'));
           }
           profile.email = emailDetail.email;
-          console.log(profile);
+          logger.info('GitHub profile:', { profile });
           let user = await UserModel.findOne({ email: profile.email });
           if (!user) {
             const newCart = await serviceCarts.createOne();
@@ -111,15 +110,14 @@ export default function initPassport() {
               cartID: cartID,
             };
             let userCreated = await UserModel.create(newUser);
-            console.log('User Registration succesful');
+            logger.info('User Registration successful');
             return done(null, userCreated);
           } else {
-            console.log('User already exists');
+            logger.info('User already exists');
             return done(null, user);
           }
         } catch (e) {
-          console.log('Error in Auth GitHub!');
-          console.log(e);
+          logger.error('Error in Auth GitHub!', { error: e });
           return done(e);
         }
       }

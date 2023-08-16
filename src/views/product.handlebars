@@ -4,23 +4,16 @@
   </h1>
   <img src='{{product.thumbnail}}' alt='imagen del producto' />
   <h2>
-    Price:
+    Precio:
     {{product.price}}
   </h2>
   <h2>
-    Category:
+    Categoria:
     {{product.category}}
   </h2>
-  <div class='product-description'>
-    <h2>
-      Description:
-      {{product.description}}
-    </h2>
-    <h2>
-      id:
-      {{product._id}}
-    </h2>
-    {{!-- <button onclick="putIntoCart('{{product._id}}')">🛒</button> --}}
-  </div>
+  <h2>
+    Descripcion:
+    {{product.description}}
+  </h2>
   <button class='button is-danger mt-3' onclick="location.href='/products'">Volver</button>
 </div>

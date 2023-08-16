@@ -14,8 +14,12 @@
     <div class='navbar__content'>
       <a href='/api/sessions/current' class='navbar__link cartInfo' id='{{session.cartID}}'>
         <button class='navbar__button button is-danger'><span class='icon'><i class='material-icons'>account_circle</i></span><span>{{session.firstName}}</span></button></a>
+      <button class='navbar__logout-btn button is-danger' onclick="location.href='/chat'">
+        <i class='material-icons'>chat</i>
+        Chatea con nosotros
+      </button>
       <a onclick="location.href='/carts/{{session.cartID}}'">
-        <button class='navbar__button button is-danger'><span class='icon'><i class='material-icons'>shopping_cart</i></span><span></span></button></a>
+        <button class='navbar__button button is-danger'><span class='icon'><i class='material-icons'>shopping_cart</i></span><span>Mi compra</span></button></a>
       <button id='logout-btn' class='navbar__logout-btn button is-danger'><span class='icon'><i class='material-icons'>exit_to_app</i></span><span>Salir</span></button>
     </div>
   {{else}}

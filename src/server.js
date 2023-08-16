@@ -48,7 +48,7 @@ const server = httpServer.listen(port, () => {
     });
   logger.info(`📢 Server listening on port: ${port}`);
 });
-server.on('error', (error) => console.log(error));
+server.on('error', (error) => logger.error(error));
 
 /*-------SESSION-------------*/
 app.use(cookieParser('mySecret'));

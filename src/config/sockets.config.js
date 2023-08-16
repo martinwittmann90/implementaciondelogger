@@ -1,3 +1,4 @@
+import { logger } from '../utils/logger.js';
 import ServiceProducts from '../services/products.service.js';
 import ServiceChats from '../services/chats.service.js';
 
@@ -6,7 +7,7 @@ const serviceProducts = new ServiceProducts();
 
 export default (io) => {
   io.on('connection', (socket) => {
-    console.log('New client websocket: ', socket.id);
+    logger.info('New client websocket connected:', { socketId: socket.id });
     //SOCKET PRODUCTS
     socket.on('product_front_to_back', async (newProduct) => {
       try {
@@ -14,7 +15,7 @@ export default (io) => {
         const productList = await serviceProducts.getAllProducts();
         io.emit('products_back_to_front', { productList });
       } catch (error) {
-        console.log(error);
+        logger.error(error);
       }
     });
     //SOCKET DELETE ELEMENTS
@@ -25,7 +26,7 @@ export default (io) => {
         const productList = await serviceProducts.getAllProducts();
         io.emit('products_back_to_front', { productList });
       } catch (error) {
-        console.error('Error al eliminar el producto:', error);
+        logger.error('Error al eliminar el producto:', { error });
         socket.emit('productDeleteError_back_to_front', { error: 'An error occurred while deleting the product' });
       }
     });
@@ -34,17 +35,17 @@ export default (io) => {
       try {
         serviceChats.createChat(message);
         const messages = await serviceChats.getChat();
-        console.log(messages);
+        logger.info('Chat messages:', { messages });
         socket.emit('chat_back_to_front', messages);
         socket.broadcast.emit('chat_back_to_front', messages);
       } catch (error) {
-        console.log(error);
+        logger.error(error);
       }
     });
 
     //SOCKET DESCONEXION
     socket.on('disconnect', () => {
-      console.log('User was disconnected');
+      logger.info('User was disconnected');
     });
   });
 };

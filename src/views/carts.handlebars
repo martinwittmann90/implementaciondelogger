@@ -14,7 +14,7 @@
           <td>{{this.title}}</td>
           <td>{{this.price}}</td>
           <td>{{this.quantity}}</td>
-          <td class='infoProduct' id='{{this._id}}'>{{this._id}}</td>
+          <td class='infoProduct' id='{{this._id}}'></td>
           <td><button onclick="removeProductFromCart('{{userCartId}}', '{{this.product._id}}')">Eliminar</button></td>
         </tr>
       {{/each}}
@@ -30,7 +30,7 @@
   </button>
 
 {{else}}
-  <p>No products in the cart</p>
+  <p>No hay productos en el carrito</p>
   <button class='button is-danger mt-3' onclick="location.href='/products'"><span class='icon'>
       <i class='material-icons'>arrow_back</i></span><span>Seguir comprando</span>
   </button>
