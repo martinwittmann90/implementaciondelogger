@@ -1,7 +1,7 @@
 <div class='publicityBanner'>
-  <p>Envíos a todo el país</p>
-  <p>3 Cuotas sin interés</p>
-  <p>0800-777-NISCHE</p>
+  <p><i class='material-icons'>local_shipping</i> Envíos a todo el país</p>
+  <p><i class='material-icons'>credit_card</i> 3 Cuotas sin interés</p>
+  <p><i class='material-icons'>phone</i> 0800-777-NISCHE</p>
 </div>
 <nav class='navbar'>
   {{#if session}}
@@ -13,10 +13,10 @@
     </div>
     <div class='navbar__content'>
       <a href='/api/sessions/current' class='navbar__link cartInfo' id='{{session.cartID}}'>
-        <button class='navbar__button button is-danger'><span class='icon'><i class='material-icons'>account_circle</i></span><span>Perfil</span></button></a>
+        <button class='navbar__button button is-danger'><span class='icon'><i class='material-icons'>account_circle</i></span><span>{{session.firstName}}</span></button></a>
       <a onclick="location.href='/carts/{{session.cartID}}'">
-        <button class='navbar__button button is-danger'><span class='icon'><i class='material-icons'>shopping_cart</i></span><span>Carrito</span></button></a>
-      <button id='logout-btn' class='navbar__logout-btn button is-danger'><span class='icon'><i class='material-icons'>exit_to_app</i></span><span>Cerrar sesión</span></button>
+        <button class='navbar__button button is-danger'><span class='icon'><i class='material-icons'>shopping_cart</i></span><span></span></button></a>
+      <button id='logout-btn' class='navbar__logout-btn button is-danger'><span class='icon'><i class='material-icons'>exit_to_app</i></span><span>Salir</span></button>
     </div>
   {{else}}
     <p class='navbar__guest-message'>Bienvenido a la tienda</p>
@@ -36,14 +36,13 @@
     {{#each productsVisualice}}
       <div class='containerCard containerProd' style='width: 14rem; margin-top: 5px;' id='{{this._id}}'>
         <div style='margin-top: 10px; width:200px; height:200px;'>
-          <img src={{this.thumbnail}} alt='foto de Product {{this.id}}' />
+          <a onclick="location.href='/products/{{this._id}}'"><img src={{this.thumbnail}} alt='foto de Product {{this.id}}' /></a>
         </div>
         <div class='card-body'>
           <h3 id='titleProduct' class='card-title'>{{this.title}}</h3>
           <p id='descriptionProduct' class='card-text'>{{this.description}}</p>
           <p id='priceProduct' class='card-text'>$ {{this.price}}</p>
-          <button onclick="putIntoCart('{{this._id}}')">🛒</button>
-          <a href='/products/{{this._id}}'>ir al producto</a>
+          <button onclick="putIntoCart('{{this._id}}')"><i class='material-icons'>shopping_basket</i><p>Agregar al carrito</p></button>
           <br />
         </div>
       </div>

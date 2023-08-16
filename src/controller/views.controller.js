@@ -130,11 +130,13 @@ class ViewsController {
         stock: product.stock,
         category: product.category,
       };
+      console.log(productSimplificado);
       res.render('product', { product: productSimplificado });
-      logger.info('getProductById function called successfully.');
+      logger.info('Get product function called successfully.');
     } catch (err) {
       res.status(err.status || 500).json({
         status: 'error',
+        message: 'error seleccionado producto',
         payload: err.message,
       });
     }

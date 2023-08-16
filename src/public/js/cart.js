@@ -1,8 +1,6 @@
 let locateCartById = document.getElementsByClassName('cartInfo')[0];
 let userCart = document.getElementsByClassName('infoCart')[0];
 let productInfo = document.getElementsByClassName('infoProduct')[0];
-console.log(userCart);
-console.log('Aca deberia aparecer el id del Product:', productInfo);
 let API_URL;
 if (window.location.hostname === 'localhost' && window.location.port === '3000') {
   API_URL = 'http://localhost:3000/api';
@@ -42,7 +40,7 @@ function putIntoCart(_id) {
       alert(JSON.stringify(error));
     });
 }
-
+/*------------------------REMOVE PRODUCTS FROM CART---------------------*/
 function removeProductFromCart(_id) {
   const userCartRemove = userCart?.getAttribute('id');
   const productInfoRemove = productInfo?.getAttribute('id');
@@ -65,7 +63,7 @@ function removeProductFromCart(_id) {
   window.location.href = window.location.href;
 }
 
-//FUNCION PARA VACIAR CARRITO
+/*------------------------EMPTY CART---------------------*/
 function clearCart() {
   const userCartEmpty = userCart?.getAttribute('id');
   const url = API_URL_FORDELETE + '/carts/empty/' + userCartEmpty;

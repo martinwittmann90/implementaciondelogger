@@ -52,20 +52,14 @@ server.on('error', (error) => console.log(error));
 
 /*-------SESSION-------------*/
 app.use(cookieParser('mySecret'));
-
-const MONGO_USER = process.env.MONGO_USER;
-const MONGO_PASS = process.env.MONGO_PASS;
-const DB_NAME = process.env.DB_NAME;
-const SESSION_SECRET = process.env.SESSION_SECRET;
-
 app.use(
   session({
     store: MongoStore.create({
-      mongoUrl: `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@projectmartinwittmann.l8a7l5b.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`,
+      mongoUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@projectmartinwittmann.l8a7l5b.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
       mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
       ttl: 60 * 10,
     }),
-    secret: SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
   })

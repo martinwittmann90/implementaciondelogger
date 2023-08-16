@@ -1,6 +1,5 @@
 import ProductsDAO from '../DAO/classes/product.dao.js';
 const productsDAO = new ProductsDAO();
-import ProductModel from '../DAO/models/product.model.js';
 import EErros from '../error/enum.js';
 import CustomError from '../error/customError.js';
 import { customErrorMsg } from '../error/customErrorMessage.js';
@@ -23,32 +22,24 @@ class ServiceProducts {
   }
   async getProductById(id) {
     try {
-      const product = await productsDAO.getProductById({ _id: id });
+      const product = await productsDAO.getProduct({ _id: id });
       return product;
     } catch (err) {
-      throw `No se encontró producto de id ${id}.`;
+      throw new CustomError(`No se encontró producto de id ${id}.`, 'ProductNotFoundError');
     }
   }
 
   async createProduct(productData) {
     try {
-      console.log('Creating product with data:', productData);
-
       const { title, description, thumbnail, code, category } = productData;
-      console.log('Checking required fields...');
-
       const price = parseFloat(productData.price);
       const stock = parseInt(productData.stock, 10);
-
       if (!title || !description || isNaN(price) || !thumbnail || !code || isNaN(stock) || !category) {
-        console.log('Validation error: Missing required fields');
         const error = new Error('Validation Error: Wrong format.');
         error.code = EErros.INVALID_TYPES_ERROR;
         error.cause = customErrorMsg.generateProductErrorInfo(productData);
         throw error;
       }
-
-      console.log('Checking if product already exists...');
       if (await productsDAO.getProductByCode(code, true)) {
         console.log('Validation error: Product already exists');
         return CustomError.createError({
@@ -58,11 +49,7 @@ class ServiceProducts {
           cause: customErrorMsg.generateProductoErrorAlredyExists(productData),
         });
       }
-
-      console.log('Creating new product...');
       const newProd = await productsDAO.createOneProduct({ ...productData, price, stock });
-      console.log('Product created:', newProd);
-
       return newProd;
     } catch (error) {
       console.log('Error creating product:', error);

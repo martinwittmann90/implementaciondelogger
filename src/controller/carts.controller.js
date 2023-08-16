@@ -1,9 +1,5 @@
 import ServiceCarts from '../services/carts.service.js';
 const serviceCarts = new ServiceCarts();
-
-import ServiceTickets from '../services/tickets.service.js';
-const serviceTickets = new ServiceTickets();
-
 import { logger } from '../utils/logger.js';
 
 class CartController {
